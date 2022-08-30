@@ -1,4 +1,9 @@
 
+import br.edu.ifsp.pep.dao.ProdutoDAO;
+import br.ifsp.edu.pep.modelo.Produto;
+import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /*
@@ -12,8 +17,17 @@ import javax.persistence.Persistence;
  */
 public class Principal {
     
+    private static ProdutoDAO produtoDAO = new ProdutoDAO();
+    
     public static void main(String[] args) {
-        Persistence.createEntityManagerFactory("venda-produtosPU");
+        adicionarProdutos();
+    }
+    
+    private static void adicionarProdutos(){
+        for(int i = 0; i < 10; i++){
+            Produto p = new Produto("Produto" + i, i*10, new BigDecimal((i+1)*100));
+            produtoDAO.inserir(p);
+        }
     }
             
 }

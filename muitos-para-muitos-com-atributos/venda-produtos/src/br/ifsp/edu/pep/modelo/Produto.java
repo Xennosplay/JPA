@@ -65,6 +65,17 @@ public class Produto implements Serializable{
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
+
+    public Produto() {
+    }
+
+    public Produto(String descricao, int quantidade, BigDecimal preco) {
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.preco = preco;
+    }
+    
+    
     
     
     
