@@ -4,6 +4,7 @@
  */
 package br.edu.ifsp.pep.dao;
 
+import br.ifsp.edu.pep.modelo.Itens;
 import br.ifsp.edu.pep.modelo.Venda;
 import javax.persistence.EntityManager;
 
@@ -15,17 +16,28 @@ public class VendaDAO extends AbstractDAO<Venda>{
 
     @Override
     public void alterar(Venda entity) {
-        super.alterar(entity); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.alterar(entity); 
     }
 
-    @Override
-    public void inserir(Venda entity) {
-        super.inserir(entity); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
+//    @Override
+//    public void inserir(Venda venda) {
+//        EntityManager em = getEntityManager();
+//        
+//        em.getTransaction().begin();
+//        em.persist(venda);
+//        
+//        for(Itens item: venda.getItens()){
+//            em.persist(item);
+//        }
+//        
+//        em.getTransaction().commit();
+//        
+//        em.close();
+//    }
 
     @Override
     protected EntityManager getEntityManager() {
-        return super.getEntityManager(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        return super.getEntityManager();
     }
     
     
