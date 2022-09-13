@@ -1,4 +1,6 @@
-package br.edu.ifsp.pep.dao;
+package dao;
+
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

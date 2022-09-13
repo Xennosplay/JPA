@@ -5,6 +5,7 @@ package br.edu.ifsp.pep.dao;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+import dao.AbstractDAO;
 import br.edu.ifsp.pep.model.Pessoa;
 import java.math.BigDecimal;
 import java.util.List;
