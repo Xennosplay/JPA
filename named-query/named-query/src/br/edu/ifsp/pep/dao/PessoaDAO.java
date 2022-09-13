@@ -5,9 +5,9 @@ package br.edu.ifsp.pep.dao;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import dao.AbstractDAO;
 import br.edu.ifsp.pep.model.Pessoa;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -29,7 +29,7 @@ public class PessoaDAO extends AbstractDAO<Pessoa>{
     public List<Pessoa> buscarPorNome(String nome){
         EntityManager em = getEntityManager();
         TypedQuery<Pessoa> query = em.createNamedQuery("Pessoa.buscarPorNome", Pessoa.class);
-        query.setParameter("nome", "%" + nome);
+        query.setParameter("nome", "%" + nome + "%");
         
         return query.getResultList();
     }
@@ -41,6 +41,43 @@ public class PessoaDAO extends AbstractDAO<Pessoa>{
         
         return query.getResultList();
         
+        
+    }
+    
+    public void remover(Pessoa p){
+        EntityManager em = getEntityManager();
+        
+        em.getTransaction().begin();
+        System.out.println("Está no estado gerenciado? " + em.contains(p));
+        
+        em.remove(em.merge(p));
+        
+        em.getTransaction().commit();
+        em.close();
+        
+    }
+    
+    public void verificarEstadoDoCicloDeVida(){
+        Pessoa p = new Pessoa("Ana", new Date(), new BigDecimal(5000));
+        
+        EntityManager em = getEntityManager();
+        
+        // Verifica se o objeto p esta no estado gerenciado (managed)
+        System.out.println("Está no estado gerenciado? " + em.contains(p));
+        
+        //Executa o método persist do entity manager
+        //O objeto deve ir para o estado gerenciado
+        em.persist(p);
+        
+        //Verifica se o objeto p está no estado gerenciado (managed)
+        System.out.println("Está no estado gerenciado? " + em.contains(p));
+        
+        //Remove o objeto p do estado gerenciado
+        em.detach(p);
+        
+        //Verifica se o objeto p está no estado gerenciado (managed)        
+        System.out.println("Está no estado gerenciado? " + em.contains(p));
+
         
     }
 }

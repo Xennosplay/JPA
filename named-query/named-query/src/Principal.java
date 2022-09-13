@@ -2,6 +2,7 @@
 import br.edu.ifsp.pep.dao.PessoaDAO;
 import br.edu.ifsp.pep.model.Pessoa;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,22 @@ import java.util.List;
 public class Principal {
     
     public static void main(String[] args) {
+        PessoaDAO pessoaDAO = new PessoaDAO();
+        
+        for(int i = 0; i < 10;){
+            Pessoa p = new Pessoa("Pessoa" + i, new Date(2000+i, i, i), new BigDecimal(1000 * ++i));
+            pessoaDAO.inserir(p);
+        }
+        
+        List<Pessoa> pessoas = pessoaDAO.buscarPorNome("Pessoa");
+        for (Pessoa pessoa : pessoas) {
+            System.out.println(pessoa);
+        }
+        
+        pessoaDAO.remover(pessoas.get(2));
+    }
+    
+    public static void testeNamedQueries(){
         PessoaDAO pessoaDAO = new PessoaDAO();
         for(int i = 0; i < 10;){
             Pessoa p = new Pessoa("Pessoa" + i, new Date(2000+i, i, i), new BigDecimal(1000 * ++i));

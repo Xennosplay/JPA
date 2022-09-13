@@ -1,4 +1,4 @@
-package dao;
+package br.edu.ifsp.pep.dao;
 
 
 
@@ -47,6 +47,16 @@ public abstract class AbstractDAO<T> {
         
         em.close();
         
+    }
+    
+    public void remover(T entity){
+        EntityManager em = getEntityManager();
+        
+        em.getTransaction().begin();
+        em.remove(em.merge(entity));
+        em.getTransaction().commit();
+        
+        em.close();
     }
     
     
