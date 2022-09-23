@@ -28,6 +28,14 @@ public class Cliente implements Serializable{
     @Column(name = "nome", length = 40, nullable = false)
     private String nome;
 
+    public Cliente() {
+    }
+
+    public Cliente(String nome) {
+        this.nome = nome;
+    }
+    
+
     public long getId() {
         return id;
     }

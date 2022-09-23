@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -33,7 +32,9 @@ import javax.persistence.UniqueConstraint;
         @NamedQuery(name = "Veiculo.buscarTodos",
                 query = "SELECT v FROM Veiculo v"),
         @NamedQuery(name = "Veiculo.buscarPorPlacaECidade",
-                query = "SELECT v FROM Veiculo v WHERE v.cidade = :cidade AND v.placa = :placa")
+                query = "SELECT v FROM Veiculo v WHERE v.cidade = :cidade AND v.placa = :placa"),
+        @NamedQuery(name = "Veiculo.buscarDisponiveisParaLocacao",
+                query = "SELECT v FROM Veiculo v Where v.situacao = false")
 })
 public class Veiculo implements Serializable{
     @Id
@@ -52,19 +53,25 @@ public class Veiculo implements Serializable{
     @Column(name = "ano", nullable = false)
     private int ano;
     
+    @Column(name = "locado", nullable = false)
+    private boolean locado;
+    
     @ManyToOne
     @JoinColumn(name = "tipo_veiculo_id", nullable = false)
     private TipoVeiculo tipo;
+    
 
-    public Veiculo() {
+    public Veiculo(boolean locado) {
+        this.locado = false;
     }
 
-    public Veiculo(String placa, String cidade, String modelo, int ano, TipoVeiculo tipo) {
+    public Veiculo(String placa, String cidade, String modelo, int ano, TipoVeiculo tipo, boolean locado) {
         this.placa = placa;
         this.cidade = cidade;
         this.modelo = modelo;
         this.ano = ano;
         this.tipo = tipo;
+        this.locado = false;
     }
     
     public long getId() {
@@ -106,6 +113,21 @@ public class Veiculo implements Serializable{
     public void setAno(int ano) {
         this.ano = ano;
     }
-    
+
+    public boolean isLocado() {
+        return locado;
+    }
+
+    public void setLocado(boolean locado) {
+        this.locado = locado;
+    }
+
+    public TipoVeiculo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoVeiculo tipo) {
+        this.tipo = tipo;
+    }
     
 }

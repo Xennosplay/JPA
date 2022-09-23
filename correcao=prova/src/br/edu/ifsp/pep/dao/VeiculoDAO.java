@@ -8,6 +8,7 @@ import br.edu.ifsp.pep.model.Veiculo;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -27,8 +28,26 @@ public class VeiculoDAO extends AbstractDAO<Veiculo>{
                 .getSingleResult();
     }
     
-//    public void inserir(Veiculo veiculo){
-//        EntityManager em - getEntityManager();
-//        em.getTransaction().begin();
-//    }
+    public void inserir(Veiculo veiculo){
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        
+        try{
+            Veiculo veiculoEncontrado = em.createNamedQuery("Veiculo.buscarPorPlacaECidade", Veiculo.class)
+                    .setParameter("placa", veiculo.getPlaca())
+                    .setParameter("cidade", veiculo.getCidade())
+                    .getSingleResult();
+            
+            System.out.println("Ja existem um veiculo com a placa.");
+            System.out.println(veiculoEncontrado.getPlaca() 
+                    + veiculoEncontrado.getModelo() + veiculoEncontrado.getCidade());
+                    
+        } catch (NoResultException nre){
+            em.persist(veiculo);
+            
+        }
+        
+        em.getTransaction().commit();
+        em.close();
+    }
 }

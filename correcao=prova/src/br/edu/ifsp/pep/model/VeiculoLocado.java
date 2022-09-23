@@ -6,12 +6,14 @@ package br.edu.ifsp.pep.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,6 +41,17 @@ public class VeiculoLocado implements Serializable{
     
     @Column(name = "data_devolucao", nullable = false)
     private Date dataDevolucao;
+
+    public VeiculoLocado(Veiculo veiculo, Locacao locacao, int diasLocado) {
+        this.veiculo = veiculo;
+        this.locacao = locacao;
+        this.diasLocado = diasLocado;
+    }
+
+    public VeiculoLocado() {
+    }
+    
+    
 
     public Veiculo getVeiculo() {
         return veiculo;
@@ -71,6 +84,7 @@ public class VeiculoLocado implements Serializable{
     public void setDataDevolucao(Date dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
+    
     
     
 }
