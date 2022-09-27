@@ -15,16 +15,18 @@ import javax.persistence.EntityManager;
  */
 public class LocacaoDAO extends AbstractDAO<Locacao>{
     
-//    @Override
-//    public void inserir(Locacao locacao){
-//        EntityManager em = getEntityManager();
-//        
-//        em.getTransaction().begin();
-//        
+    @Override
+    public void inserir(Locacao locacao){
+        EntityManager em = getEntityManager();
+        
+        em.getTransaction().begin();
+        
 //        for (VeiculoLocado veiculosLocado : locacao.getVeiculosLocado()) {
 //            Veiculo veiculo = veiculosLocado.getVeiculo();
 //            veiculo.setLocado(true);
 //        }
-//    }
+        
+        em.getTransaction().commit();
+    }
     
 }
